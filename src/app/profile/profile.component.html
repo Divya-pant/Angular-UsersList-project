@@ -1,0 +1,35 @@
+<div class="container p-3 rounded shadow" id="{{ profile.id }}" *ngFor="let profile of profile">
+    <div class="row mt-3">
+        <div class="col-2">
+            <img [src]="profile.avatar_url" class="img-thumbnail rounded" title="{{ profile.login }}" *ngIf="isVisible; else elseblock">
+            <ng-template #elseblock>       
+            <h2>Image Hidden</h2>
+        </ng-template>
+        </div>
+        <div class="col-3">
+            <div class="d-flex flex-column">
+                <a (click)="notifyParent()" [class]="'text-' + 'reset'">
+                    <h1 [ngStyle]="{color:'hsl('+hue + ',100%,50%)'}">{{ profile.name }}</h1>
+                    <div [innerHtml]="someHtmlText"></div>
+                </a>
+                <p [ngClass]="{
+                    'red':profile.type == 'Organization',
+                    'blue':profile.type== 'User',
+                    'orange':profile.type != 'Organization' &&  profile.type !='User'
+                    }">Type: {{ profile.type }}</p>
+                <p appHighlight hoverColor="red">Location: {{ profile.location || 'Not Available' }}</p>
+                <p appHighlight hoverColor="blue">Email: {{ profile.email || 'Email_id' }}</p>
+                <h5 [ngClass]="profile.type=='User'?'blue':'red'">Type:{{profile.type}}</h5>
+                <!-- <button class="btn" [ngClass]="{isVisible? 'btn-success':'btn-danger'" (click)="toggleVisibility()}"> -->
+                    <!-- {{isVisible ? 'Hide' : 'Show'}}  -->
+                    <!-- Picture -->
+                     <!-- </button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <ul>
+    <li *ngFor="let award of awards">{{award}}
+
+    </li>
+</ul> -->
